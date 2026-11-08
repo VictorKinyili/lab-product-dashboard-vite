@@ -10,7 +10,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.outOfStockCard {
+.outOfStockCard,
+:global(.outOfStockClass) {
   background-color: #f9f9f9;
   border: 1px dashed #d32f2f;
   opacity: 0.8;

@@ -1,8 +1,8 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 import { Grid } from '@mui/material';
 
-function ProductList({ products }) {
+function ProductList({ products, onRemove }) {
   if (products.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
@@ -19,11 +19,24 @@ function ProductList({ products }) {
             name={product.name}
             price={product.price}
             isAvailable={product.isAvailable}
+            onRemove={() => onRemove(product.id)}
           />
         </Grid>
       ))}
     </Grid>
   );
 }
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      isAvailable: PropTypes.bool.isRequired,
+    }).isRequired,
+  ).isRequired,
+  onRemove: PropTypes.func.isRequired,
+};
 
 export default ProductList;

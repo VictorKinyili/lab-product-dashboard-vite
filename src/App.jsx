@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProductList from './components/ProductList';
 import { Container, Typography, Button, Stack, Box } from '@mui/material';
 
 const INITIAL_PRODUCTS = [
-  { id: 1, name: "Wireless Mechanical Keyboard", price: 89.99, isAvailable: true },
-  { id: 2, name: "Ergonomic Wired Mouse", price: 45.00, isAvailable: false },
-  { id: 3, name: "UltraWide Gaming Monitor 34\"", price: 349.99, isAvailable: true },
-  { id: 4, name: "Noise Cancelling Headphones", price: 120.00, isAvailable: false },
-  { id: 5, name: "USB-C Multi-port Hub Dock", price: 29.99, isAvailable: true },
+  { id: 1, name: 'Laptop', price: 999, isAvailable: true },
+  { id: 2, name: 'Phone', price: 699, isAvailable: false },
+  { id: 3, name: 'Tablet', price: 499, isAvailable: true },
 ];
 
 function App() {
   const [filter, setFilter] = useState('all');
+  const [products, setProducts] = useState(INITIAL_PRODUCTS);
 
-  const displayedProducts = INITIAL_PRODUCTS.filter((product) => {
+  const displayedProducts = products.filter((product) => {
     if (filter === 'available') return product.isAvailable;
     if (filter === 'unavailable') return !product.isAvailable;
     return true;
   });
+
+  const removeProduct = (productId) => {
+    setProducts((currentProducts) =>
+      currentProducts.filter((product) => product.id !== productId),
+    );
+  };
 
   return (
     <Container maxWidth="lg" style={{ marginTop: '32px', marginBottom: '32px' }}>
@@ -50,7 +55,7 @@ function App() {
         </Stack>
       </Box>
 
-      <ProductList products={displayedProducts} />
+      <ProductList products={displayedProducts} onRemove={removeProduct} />
     </Container>
   );
 }
